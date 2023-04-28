@@ -1,6 +1,7 @@
 ## question and its answer
 
 ### what is that the project is Hand Gesture Recognition ?
+
 #### For hand gesture recognition, some of the best feature extraction techniques are:
 
     Histogram of Oriented Gradients (HOG): It extracts gradient information from an image and creates a feature vector based on the distribution of these gradients.
@@ -35,8 +36,7 @@
 
     Evaluation: Finally, the performance of the model can be evaluated using metrics such as accuracy, precision, recall, and F1 score. Cross-validation techniques such as k-fold cross-validation can also be used to ensure that the model's performance is consistent across different subsets of the data.
 
-
-### suggest most usefal 4 feature extraction for Hand Gesture Recognition 
+### suggest most usefal 4 feature extraction for Hand Gesture Recognition
 
     Histogram of Oriented Gradients (HOG): This method counts the occurrences of gradient orientation in localized portions of an image. It can be used to capture edge and shape information, which is important for hand gesture recognition.
 
@@ -46,7 +46,7 @@
 
     Speeded Up Robust Feature (SURF): Similar to SIFT, this technique is also used to identify and extract local features that are invariant to scale, rotation, and translation. It is faster than SIFT and can be used for real-time hand gesture recognition applications.
 
-### most usefal 4 model for Hand Gesture Recognition 
+### most usefal 4 model for Hand Gesture Recognition
 
     Given that the dataset is relatively small, a simple yet effective model would be the Support Vector Machine (SVM) classifier. SVMs have been widely used for image classification tasks and have shown good performance with small datasets.
 
@@ -56,23 +56,23 @@
 
     Finally, Decision Tree is also a suitable option for small datasets. It is a simple and interpretable model that can be trained quickly and does not require a lot of computational resources. However, it may not perform as well as SVM, Random Forest, or Naive Bayes on complex image datasets.
 
+### preprocessing :
 
-
-### preprocessing : 
     - moza
     - hamza
 
 ### features : waer
-    - HOG : 
-    - LBP : 
-    - SIFT : 
-    - SURF : 
+
+    - HOG :
+    - LBP :
+    - SIFT :
+    - SURF :
 
 ### models : beshoy
-    - SVM : 
-    - Random Forest, : 
-    - Naive Bayes : 
-    - Decision Tree : 
 
+    - SVM :
+    - Random Forest :
+    - Naive Bayes :
+    - Decision Tree :
 
 Deadline : 25/4
