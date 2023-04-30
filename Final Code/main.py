@@ -1,14 +1,9 @@
 # Imports
-import numpy as np
 import cv2
 import os
-import sys
-sys.path.append("Preprocessing Module")
 from preprocessing import preprocess
-sys.path.append("Model Training Module")
-from models import get_model
-sys.path.append("Feature Extraction Module")
 from features import get_feature
+from models import get_model
 
 
 # =========================================================================
