@@ -1,0 +1,92 @@
+- hosts: all
+  become: true
+  become_user: root
+  tasks:
+
+  - name: copying deploment files
+    become: true 
+    copy:
+      src: /media/waer/New Volume/Created_by_me/SW_Reops/SW-DevOps/Docker-Compose/
+      dest: /Read-it/deployment/
+
+  - name: check permission of docker socke
+    ansible.builtin.file:
+      path: /var/run/docker.sock
+      owner: "root"
+      group: "root"
+      mode: '0666'
+
+  - name: Creates directory for certification
+    file:
+      path: /Read-it/certbot
+      state: directory
+
+  - name: Creates directory for certification www
+    file:
+      path: /Read-it/certbot/www
+      state: directory
+
+  - name: Creates directory for certification conf
+    file:
+      path: /Read-it/certbot/conf
+      state: directory
+
+
+  - name: Creates directory for backend logs
+    file:
+      path: /Read-it/Backend/private
+      state: directory
+
+  - name: copying backend secret key
+    become: true 
+    copy:
+      src: /media/waer/New Volume/Created_by_me/SW_Reops/SW-DevOps/Privates/
+      dest: /Read-it/Backend/private/
+
+
+  - name: Creates directory for backend logs
+    file:
+      path: /Read-it/Backend/log
+      state: directory
+
+  - name: Creates directory for mongodb
+    file:
+      path: /Read-it/mongoData
+      state: directory
+
+  - name: down application for check for new version
+    become: True
+    shell:
+      cmd: "docker-compose down"
+      chdir: /Read-it/deployment/
+
+  - name: make the log files empty
+    ansible.builtin.copy:
+      src: ./emptyfile
+      dest: /Read-it/Backend/log/access.log
+      mode: '0777'
+  
+  - name: Pull the latest frontend image
+    docker_image:
+      name: "waer/frontend:latest"
+
+  - name: Pull the latest flutterweb image
+    docker_image:
+      name: "waer/flutterweb:latest"
+
+  - name: Pull the latest backend image
+    docker_image:
+      name: "waer/backend:latest"
+
+  # - name: deploy Docker Compose stack
+  #   community.docker.docker_compose:
+  #     project_src: /Read-it/deployment/
+  #     files:
+  #     - docker-compose.yaml
+  #     pull : yes
+
+# ssh -i ~/.ssh/MainVm_key.pem azureuser@read-it.francecentral.cloudapp.azure.com
+# ansible-playbook -i hosts ./StartVm.yml --private-key=~/.ssh/Read-it.pem
+# ansible all -i hosts -m ping --private-key=~/.ssh/MainVm_key.pem
+# sudo docker run -p 8085:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts -d
+# sudo docker run -d -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home docker_jenkins:v1
