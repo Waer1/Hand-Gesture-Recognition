@@ -17,5 +17,3 @@ do
 done
 
 wait
-
-    

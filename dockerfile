@@ -20,7 +20,9 @@ COPY ./FinalCode /model/FinalCode
 WORKDIR /model/
 
 # Run app.py when the container launches
-CMD ["python", "./FinalCode/main.py"]
+CMD [ "python" , "./FinalCode/main.py" ]
 
-# docker run -it -v ./Dataset/:/model/Dataset hand sh
+
+# docker run -it -v ./Dataset/:/model/Dataset -e "FEATURE_METHOD=0" -e "MODEL_METHOD=0" hand sh
+
 # docker run -e "FEATURE_METHOD=0" -e "MODEL_METHOD=0" -v ./Dataset/:/model/Dataset hand > output

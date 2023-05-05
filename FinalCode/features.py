@@ -104,11 +104,11 @@ def SURF(image):
 # =========================================================================
 
 def get_feature(FEATURE_METHOD, image):
-		if FEATURE_METHOD == 0:
+		if FEATURE_METHOD == '0':
 				return HOG(image)
-		elif FEATURE_METHOD == 1:
+		elif FEATURE_METHOD == '1':
 				return LBP(image)
-		elif FEATURE_METHOD == 2:
+		elif FEATURE_METHOD == '2':
 				return SIFT(image)
-		elif FEATURE_METHOD == 3:
+		elif FEATURE_METHOD == '3':
 				return SURF(image)
