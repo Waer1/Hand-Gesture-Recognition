@@ -1,6 +1,5 @@
+opencv-python
 numpy
 scikit-image
 scikit-learn
-opencv-python
-matplotlib
-cv2
+

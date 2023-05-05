@@ -16,6 +16,9 @@ FEATURE_METHOD = os.environ.get('FEATURE_METHOD')
 MODEL_METHOD = os.environ.get('MODEL_METHOD')
 # =========================================================================
 
+
+# print(FEATURE_METHOD , MODEL_METHOD)
+
 feature_arr = []
 label_arr = []
 
