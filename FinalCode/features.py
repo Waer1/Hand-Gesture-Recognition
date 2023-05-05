@@ -53,9 +53,24 @@ def SIFT(image):
     # Detect keypoints and compute descriptors
     keypoints, descriptors = sift.detectAndCompute(image, None)
 
-    # Draw keypoints on the image
-    # img = cv2.drawKeypoints(image, keypoints, img)
-    return keypoints, descriptors
+    # Initialize empty feature list
+    features = []
+
+    # Loop through each keypoint and descriptor pair
+    for i in range(len(keypoints)):
+        # Get current keypoint and descriptor
+        kp = keypoints[i]
+        desc = descriptors[i]
+
+        # Convert keypoint to feature vector
+        feature = np.concatenate((kp.pt, kp.size, kp.angle, kp.response, kp.octave, desc))
+        
+        # Append feature to feature list
+        features.append(feature)
+        
+    # Convert features list to NumPy array
+    features = np.array(features)
+    return features
 # =========================================================================
 
 
@@ -70,9 +85,24 @@ def SURF(image):
     # Detect keypoints and compute descriptors
     keypoints, descriptors = surf.detectAndCompute(image, None)
 
-    # Draw keypoints on the image
-    # img = cv2.drawKeypoints(image, keypoints, img)
-    return keypoints, descriptors
+    # Initialize empty feature list
+    features = []
+
+    # Loop through each keypoint and descriptor pair
+    for i in range(len(keypoints)):
+        # Get current keypoint and descriptor
+        kp = keypoints[i]
+        desc = descriptors[i]
+
+        # Convert keypoint to feature vector
+        feature = np.concatenate((kp.pt, kp.size, kp.angle, kp.response, kp.octave, desc))
+        
+        # Append feature to feature list
+        features.append(feature)
+        
+    # Convert features list to NumPy array
+    features = np.array(features)
+    return features
 # =========================================================================
 
 def get_feature(FEATURE_METHOD, image):
