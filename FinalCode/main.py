@@ -10,10 +10,12 @@ from models import get_model
 # Get the environment variables
 # =========================================================================
 # Possible values [0: "HOG", 1: "LBP", 2: "SIFT", 3: "SURF"]
-FEATURE_METHOD = os.environ.get('FEATURE_METHOD')
+# FEATURE_METHOD = os.environ.get('FEATURE_METHOD')
+FEATURE_METHOD = 2
 
 # Possible values [0: "SVM", 1: "RandomForest", 2: "NaiveBayes", 3: "DecisionTree"]
-MODEL_METHOD = os.environ.get('MODEL_METHOD')
+# MODEL_METHOD = os.environ.get('MODEL_METHOD')
+MODEL_METHOD = 0
 # =========================================================================
 
 
@@ -31,6 +33,7 @@ for path in image_paths:
 	
 	# iterate over the image names, get the label
 	for image in images:
+		print(f"Extracting features from {image}...")
 		image_path = f"./Dataset/{path}/{image}"
 		image = cv2.imread(image_path)
 

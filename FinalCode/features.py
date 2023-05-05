@@ -1,24 +1,21 @@
 import cv2
 from skimage.feature import hog
 import numpy as np
-from skimage import data, exposure
 from skimage.feature import local_binary_pattern
 
 # =========================================================================
 # HOG Feature Extraction
 # =========================================================================
-def HOG(image, orientations = 9, pixels_per_cell = (8, 8), cells_per_block = (3, 3), visualize = True):
-    # Define HOG parameters
-
+def HOG(image, orientations = 9, pixels_per_cell = (8, 8), cells_per_block = (3, 3)):
     # Calculate the HOG features
-    hog_features, hog_image = hog(image, orientations=orientations, pixels_per_cell=pixels_per_cell, cells_per_block=cells_per_block, visualize=visualize)
-
+    hog_features = hog(image, orientations=orientations, pixels_per_cell=pixels_per_cell, cells_per_block=cells_per_block)
+    
+    # Pad the feature vector with zeros to make sure they all have the same length
+    max_size = hog_features.shape[0]
+    hog_features = np.pad(hog_features, (0, max_size - hog_features.shape[0]), mode='constant')
+    hog_features = np.ravel(hog_features)
     return hog_features
-    # # Rescale the image for better visualization
-    # hog_image_rescaled = exposure.rescale_intensity(hog_image, in_range=(0, 10))
 
-    # # Show the original image and HOG features
-    # fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(8, 4), sharex=True, sharey=True)
 # =========================================================================
 
 
@@ -32,13 +29,14 @@ def LBP(image, radius = 1, method = 'uniform'):
     # Calculate the LBP features
     lbp = local_binary_pattern(image, n_points, radius, method)
 
-    # # Calculate the histogram of LBP features
-    # n_bins = int(lbp.max() + 1)
-    # hist, _ = np.histogram(lbp, density=True, bins=n_bins, range=(0, n_bins))
+    histogram, _ = np.histogram(lbp, bins=np.arange(0, n_points + 3), range=(0, n_points + 2))
 
-    # # Normalize the histogram
-    # hist /= hist.sum()
-    return lbp
+    # Normalize the histogram
+    histogram = histogram.astype("float")
+    histogram /= (histogram.sum() + 1e-7)
+
+    # The resulting histogram is the feature vector for the input image
+    return histogram
 # =========================================================================
 
 
