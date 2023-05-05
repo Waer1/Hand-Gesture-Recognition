@@ -2,6 +2,8 @@
   become: true
   become_user: root
   tasks:
+  vars_files:
+    - vars.yml
   
   - name: Add Docker Group
     group: name=docker state=present
@@ -49,9 +51,29 @@
     pip:
       name: docker-compose
 
+  - name: Update apt cache
+    apt:
+      update_cache: yes
 
+# ////////////////////////////////////////////////////////////////////////
+#  installing the requried packages
+
+  - name: Install unzip package
+    apt:
+      name: unzip
+      state: present
       
+  - name: Install gdown
+    apt:
+      name: python3-pip
+      state: present
+    
+  - name: Install gdown with pip
+    pip:
+      name: gdown
+      state: present
       
+
 # ansible-playbook -i hosts ./ConfigureMacine.yml --private-key=~/.ssh/Digitize.pem
 # non automatedsteps: 
 # enter jenkins credential ( git & docker_hub)
