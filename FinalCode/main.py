@@ -10,14 +10,12 @@ from models import get_model
 # Get the environment variables
 # =========================================================================
 # Possible values [0: "HOG", 1: "LBP", 2: "SIFT", 3: "SURF"]
-FEATURE_METHOD = os.environ.get('FEATURE_METHOD')
-
+# FEATURE_METHOD = os.environ.get('FEATURE_METHOD')
+FEATURE_METHOD = '0'
 # Possible values [0: "SVM", 1: "RandomForest", 2: "NaiveBayes", 3: "DecisionTree"]
-MODEL_METHOD = os.environ.get('MODEL_METHOD')
+# MODEL_METHOD = os.environ.get('MODEL_METHOD')
+MODEL_METHOD = '0'
 # =========================================================================
-
-
-# print(FEATURE_METHOD , MODEL_METHOD)
 
 feature_arr = []
 label_arr = []
@@ -45,6 +43,6 @@ for path in image_paths:
 		label_arr.append(path)
 
 
-print("i will traaaaain")
+print("Start the training phase")
 # Training phase
 get_model(MODEL_METHOD, feature_arr, label_arr)

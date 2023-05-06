@@ -20,7 +20,6 @@ from sklearn.tree import DecisionTreeClassifier
 # SVM Classifier
 # =========================================================================
 def svm(feature_arr, label_arr):
-		print("iam start svm")
 		# Receive the feature array and label array
 		X = np.array(feature_arr)
 		y = np.array(label_arr)
@@ -38,7 +37,6 @@ def svm(feature_arr, label_arr):
 		# Evaluate the classifier
 		y_pred = svm_classifier.predict(X_test)
 		accuracy = accuracy_score(y_test, y_pred)
-		print("iam end svm")
 
 		print(f'Accuracy: {accuracy}')
 # =========================================================================
@@ -119,7 +117,6 @@ def decision_tree(feature_arr, label_arr):
 # =========================================================================
 
 def get_model(MODEL_METHOD, feature_arr, label_arr):
-		print(MODEL_METHOD , MODEL_METHOD == '0')
 		if MODEL_METHOD == '0':
 				svm(feature_arr, label_arr)
 		elif MODEL_METHOD == '1':
