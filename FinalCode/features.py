@@ -1,7 +1,9 @@
 import cv2
-from skimage.feature import hog
+import os
 import numpy as np
+from skimage.feature import hog
 from skimage.feature import local_binary_pattern
+from preprocessing import preprocess
 
 # =========================================================================
 # HOG Feature Extraction
@@ -15,7 +17,6 @@ def HOG(image, orientations = 9, pixels_per_cell = (8, 8), cells_per_block = (3,
     hog_features = np.pad(hog_features, (0, max_size - hog_features.shape[0]), mode='constant')
     hog_features = np.ravel(hog_features)
     return hog_features
-
 # =========================================================================
 
 
@@ -56,7 +57,6 @@ def SIFT(image, feature_arr):
 # =========================================================================
 # SURF Feature Extraction
 # =========================================================================
-
 def SURF(image):
     surf = cv2.xfeatures2d.SURF_create()
     keypoints, descriptors = surf.detectAndCompute(image, None)
@@ -71,147 +71,120 @@ def SURF(image):
     
     feature_arr = np.array(feature_list, dtype=object)
     return feature_arr
+# =========================================================================
+
 
 
 # =========================================================================
-# normalize features
+# Mains
 # =========================================================================
+def HOG_MAIN(images_dir, dataset_dir):
+		feature_arr = []
+		label_arr = []
 
-def normalize_features(feature_arrays):
-    # Find the maximum size of the feature arrays
-    max_size = max(len(arr) for arr in feature_arrays)
+		for path in images_dir:
+				# get all the image names
+				images = os.listdir(dataset_dir + path)
 
-    # Pad the feature arrays with zeros
-    padded_feature_arrays = []
-    for arr in feature_arrays:
-        if len(arr) < max_size:
-            padded_arr = np.pad(arr, ((0, max_size - len(arr)), (0, 0)), mode='constant')
-        else:
-            padded_arr = arr
-        padded_feature_arrays.append(padded_arr)
+				# iterate over the image names, get the label
+				for image in images:
+						image_path = dataset_dir + f"{path}/{image}"
 
-    return padded_feature_arrays
+						try:
+								image = cv2.imread(image_path)
 
-# =========================================================================
-import os
-import cv2
-from preprocessing import preprocess
-import numpy as np
+								# Preprocessing phase
+								image = preprocess(image)
 
+								# Feature extraction phase
+								feature = HOG(image)
 
-def HOG_MAIN(images_dir):
-    feature_arr = []
-    label_arr = []
+								# update the data and labels
+								feature_arr.append(feature)
+								label_arr.append(path)
+						except:
+								print(image_path)
 
-    for path in images_dir:
-        # get all the image names
-        images = os.listdir(f"./Dataset/{path}")
-        
-            
-        # iterate over the image names, get the label
-        for image in images:
-            image_path = f"./Dataset/{path}/{image}"
-
-            try:
-
-                image = cv2.imread(image_path)
-
-                # Preprocessing phase
-                image = preprocess(image)
-
-                # Feature extraction phase
-                feature = HOG(image)
-
-                # update the data and labels
-                feature_arr.append(feature)
-                label_arr.append(path)
-            except:
-                  print(image_path)
-
-    return feature_arr, label_arr
+		return feature_arr, label_arr
 
 
-def LBP_MAIN(images_dir):
-    feature_arr = []
-    label_arr = []
+def LBP_MAIN(images_dir, dataset_dir):
+		feature_arr = []
+		label_arr = []
 
-    for path in images_dir:
-        # get all the image names
-        images = os.listdir(f"./Dataset/{path}")
-        
-        # iterate over the image names, get the label
-        for image in images:
-            image_path = f"./Dataset/{path}/{image}"
+		for path in images_dir:
+				# get all the image names
+				images = os.listdir(dataset_dir + path)
+				
+				# iterate over the image names, get the label
+				for image in images:
+						image_path = dataset_dir + f"{path}/{image}"
 
-            try:
-                image = cv2.imread(image_path)
+						try:
+								image = cv2.imread(image_path)
 
-                # Preprocessing phase
-                image = preprocess(image)
+								# Preprocessing phase
+								image = preprocess(image)
 
-                # Feature extraction phase
-                feature = LBP(image)
+								# Feature extraction phase
+								feature = LBP(image)
 
-                # update the data and labels
-                feature_arr.append(feature)
-                label_arr.append(path)
-            except:
-                  print(image_path)
+								# update the data and labels
+								feature_arr.append(feature)
+								label_arr.append(path)
+						except:
+								print(image_path)
 
-    return feature_arr, label_arr
+		return feature_arr, label_arr
 
+def SIFT_MAIN(images_dir, dataset_dir):
+		descriptors_list = []
+		label_list = []
+		max_length = 0
 
-import os
-import cv2
-import numpy as np
+		for path in images_dir:
+				# get all the image names
+				images = os.listdir(dataset_dir + path)
 
-def SIFT_MAIN(images_dir):
-    descriptors_list = []
-    label_list = []
-    max_length = 0
+				# iterate over the image names, get the label
+				for image in images:
+						image_path = dataset_dir + f"{path}/{image}"
 
-    for path in images_dir:
-        # get all the image names
-        images = os.listdir(f"./Dataset/{path}")
+						try:
+								# Read image
+								image = cv2.imread(image_path)
 
-        # iterate over the image names, get the label
-        for image in images:
-            image_path = f"./Dataset/{path}/{image}"
+								# Preprocessing phase
+								image = preprocess(image)
 
-            # Read image
-            image = cv2.imread(image_path)
+								# SIFT feature extraction
+								sift = cv2.SIFT_create()
+								keypoints, descriptors = sift.detectAndCompute(image, None)
 
-            # Preprocessing phase
-            image = preprocess(image)
+								# Update max_length that will be used for padding
+								if descriptors.shape[0] > max_length:
+										max_length = descriptors.shape[0]
 
-            # SIFT feature extraction
-            sift = cv2.SIFT_create()
-            keypoints, descriptors = sift.detectAndCompute(image, None)
+								# Append feature and label to respective lists
+								descriptors_list.append(descriptors)
+								label_list.append(path)
+						except:
+								print(image_path)
 
-            if descriptors.shape[0] > max_length:
-                max_length = descriptors.shape[0]
+		# Padding
+		for i in range(len(descriptors_list)):
+				descriptors = descriptors_list[i]
+				if descriptors.shape[0] < max_length:
+						padding = np.zeros((max_length - descriptors.shape[0], descriptors.shape[1]), dtype=np.float32)
+						descriptors = np.vstack((descriptors, padding))
+						descriptors_list[i] = descriptors
+		
+		descriptors_list = np.array(descriptors_list)
 
-            # Append feature and label to respective lists
-            descriptors_list.append(descriptors)
-            label_list.append(path)
+		nsamples, nx, ny = descriptors_list.shape
+		d2_train_dataset = descriptors_list.reshape((nsamples,nx*ny))
 
-    for i in range(len(descriptors_list)):
-        descriptors = descriptors_list[i]
-        if descriptors.shape[0] < max_length:
-            padding = np.zeros((max_length - descriptors.shape[0], descriptors.shape[1]), dtype=np.float32)
-            descriptors = np.vstack((descriptors, padding))
-            descriptors_list[i] = descriptors
-    
-    
-    descriptors_list = np.array(descriptors_list)
-
-    nsamples, nx, ny = descriptors_list.shape
-    d2_train_dataset = descriptors_list.reshape((nsamples,nx*ny))
-
-    return d2_train_dataset, np.array(label_list)
-
-
-
+		return d2_train_dataset, np.array(label_list)
 
 def SURF_MAIN(images_dir):
     descriptors_list = []
@@ -257,14 +230,15 @@ def SURF_MAIN(images_dir):
     d2_train_dataset = descriptors_list.reshape((nsamples,nx*ny))
 
     return d2_train_dataset, np.array(label_list)
+# =========================================================================
 
 
-def get_feature(FEATURE_METHOD, images_dir):
+def get_feature(FEATURE_METHOD, images_dir, dataset_dir):
 		if FEATURE_METHOD == 0:
-				return HOG_MAIN(images_dir)
+				return HOG_MAIN(images_dir, dataset_dir)
 		elif FEATURE_METHOD == 1:
-				return LBP_MAIN(images_dir)
+				return LBP_MAIN(images_dir, dataset_dir)
 		elif FEATURE_METHOD == 2:
-				return SIFT_MAIN(images_dir)
+				return SIFT_MAIN(images_dir, dataset_dir)
 		elif FEATURE_METHOD == 3:
 				return SURF_MAIN(images_dir)
