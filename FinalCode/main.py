@@ -1,10 +1,8 @@
 # Imports
-import cv2
 from features import get_feature
 from models import get_model
 import argparse
 import os
-import numpy as np
 
 # Create argument parser
 parser = argparse.ArgumentParser()
