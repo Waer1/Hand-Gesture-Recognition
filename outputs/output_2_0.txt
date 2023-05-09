@@ -1,35 +1,13 @@
-./Dataset/0/0_men (1).JPG
-./Dataset/0/0_men (10).JPG
-./Dataset/0/0_men (11).JPG
-./Dataset/0/0_men (2).JPG
-./Dataset/0/0_men (3).JPG
-./Dataset/1/1_men (1).JPG
-./Dataset/1/1_men (2).JPG
-./Dataset/1/1_men (3).JPG
-./Dataset/1/1_men (4).JPG
-./Dataset/1/1_men (5).JPG
-./Dataset/2/2_men (1).JPG
-./Dataset/2/2_men (2).JPG
-./Dataset/2/2_men (3).JPG
-./Dataset/2/2_men (4).JPG
-./Dataset/2/2_men (5).JPG
-./Dataset/2/2_men (6).JPG
-./Dataset/3/3_men (11).JPG
-./Dataset/3/3_men (12).JPG
-./Dataset/3/3_men (13).JPG
-./Dataset/3/3_men (14).JPG
-./Dataset/3/3_men (15).JPG
-./Dataset/3/3_men (16).JPG
-./Dataset/4/4_men (11).JPG
-./Dataset/4/4_men (12).JPG
-./Dataset/4/4_men (13).JPG
-./Dataset/4/4_men (14).JPG
-./Dataset/4/4_men (15).JPG
-./Dataset/4/4_men (16).JPG
-./Dataset/5/5_men (22).JPG
-./Dataset/5/5_men (23).JPG
-./Dataset/5/5_men (24).JPG
-./Dataset/5/5_men (25).JPG
-./Dataset/5/5_men (26).JPG
-./Dataset/5/5_men (27).JPG
-Accuracy: 0.0
+./Dataset/0/desktop.ini
+./Dataset/1/desktop.ini
+./Dataset/2/2_men (107).JPG
+./Dataset/2/2_men (108).JPG
+./Dataset/2/desktop.ini
+./Dataset/3/3_men (140).JPG
+./Dataset/3/3_men (141).JPG
+./Dataset/3/desktop.ini
+./Dataset/4/4_men (5).JPG
+./Dataset/4/4_men (6).JPG
+./Dataset/4/desktop.ini
+./Dataset/5/desktop.ini
+Accuracy: 0.39344262295081966

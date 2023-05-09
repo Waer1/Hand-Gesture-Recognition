@@ -232,6 +232,8 @@ def ORB_MAIN(images_dir, dataset_dir):
     return d2_train_dataset, np.array(label_list)
 # =========================================================================
 
+
+
 def get_feature(FEATURE_METHOD, images_dir, dataset_dir):
 		if FEATURE_METHOD == 0:
 				return HOG_MAIN(images_dir, dataset_dir)

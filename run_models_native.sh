@@ -4,6 +4,7 @@
 for f in $(seq 0 3); do
     for m in $(seq 0 3); do
         # Run Python script with feature and model parameters
+        echo "start feature $f and model $m"
         python FinalCode/main.py --feature "$f" --model "$m" > "./outputs/output_${f}_${m}.txt"
         echo "Finished feature $f and model $m"
     done

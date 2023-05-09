@@ -21,6 +21,6 @@ MODEL_METHOD = args.model
 dataset = "./Dataset/"
 image_paths = os.listdir(dataset)
 
-feature_arr , label_arr = get_feature(FEATURE_METHOD , image_paths)
+feature_arr , label_arr = get_feature(FEATURE_METHOD , image_paths, dataset)
 
 get_model(MODEL_METHOD, feature_arr, label_arr)

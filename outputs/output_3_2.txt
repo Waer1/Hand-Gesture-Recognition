@@ -1,1 +1,13 @@
-./Dataset/0/0_men (1).JPG
+./Dataset/0/desktop.ini
+./Dataset/1/desktop.ini
+./Dataset/2/2_men (107).JPG
+./Dataset/2/2_men (108).JPG
+./Dataset/2/desktop.ini
+./Dataset/3/3_men (140).JPG
+./Dataset/3/3_men (141).JPG
+./Dataset/3/desktop.ini
+./Dataset/4/4_men (5).JPG
+./Dataset/4/4_men (6).JPG
+./Dataset/4/desktop.ini
+./Dataset/5/desktop.ini
+Accuracy: 0.27123287671232876
