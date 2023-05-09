@@ -226,22 +226,26 @@ def ORB_MAIN(images_dir):
         for image in images:
             image_path = f"./Dataset/{path}/{image}"
 
-            # Read image
-            image = cv2.imread(image_path)
+            try:
+                # Read image
+                image = cv2.imread(image_path)
 
-            # Preprocessing phase
-            image = preprocess(image)
+                # Preprocessing phase
+                image = preprocess(image)
 
-            # SIFT feature extraction
-            orb = cv2.ORB_create()
-            keypoints, descriptors = orb.detectAndCompute(image, None)
+                # SIFT feature extraction
+                orb = cv2.ORB_create()
+                keypoints, descriptors = orb.detectAndCompute(image, None)
 
-            if descriptors.shape[0] > max_length:
-                max_length = descriptors.shape[0]
+                if descriptors.shape[0] > max_length:
+                    max_length = descriptors.shape[0]
 
-            # Append feature and label to respective lists
-            descriptors_list.append(descriptors)
-            label_list.append(path)
+                # Append feature and label to respective lists
+                descriptors_list.append(descriptors)
+                label_list.append(path)
+
+            except:
+                print(image_path)
 
     for i in range(len(descriptors_list)):
         descriptors = descriptors_list[i]
