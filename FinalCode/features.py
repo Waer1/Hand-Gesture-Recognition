@@ -213,7 +213,7 @@ def SIFT_MAIN(images_dir):
 
 
 
-def SURF_MAIN(images_dir):
+def ORB_MAIN(images_dir):
     descriptors_list = []
     label_list = []
     max_length = 0
@@ -233,8 +233,8 @@ def SURF_MAIN(images_dir):
             image = preprocess(image)
 
             # SIFT feature extraction
-            surf = cv2.xfeatures2d.SURF_create()
-            keypoints, descriptors = surf.detectAndCompute(image, None)
+            orb = cv2.ORB_create()
+            keypoints, descriptors = orb.detectAndCompute(image, None)
 
             if descriptors.shape[0] > max_length:
                 max_length = descriptors.shape[0]
@@ -267,4 +267,5 @@ def get_feature(FEATURE_METHOD, images_dir):
 		elif FEATURE_METHOD == 2:
 				return SIFT_MAIN(images_dir)
 		elif FEATURE_METHOD == 3:
-				return SURF_MAIN(images_dir)
+				return ORB_MAIN(images_dir)
+                

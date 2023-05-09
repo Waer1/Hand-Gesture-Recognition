@@ -5,8 +5,6 @@ from features import get_feature, normalize_features
 from models import get_model
 import argparse
 import os
-
-print(cv2.__version__)
 import numpy as np
 
 # Create argument parser
@@ -33,4 +31,3 @@ image_paths = os.listdir("./Dataset/")
 feature_arr , label_arr = get_feature(FEATURE_METHOD , image_paths)
 
 get_model(MODEL_METHOD, feature_arr, label_arr)
-
