@@ -118,7 +118,6 @@ def decision_tree(feature_arr, label_arr):
 
 def get_model(MODEL_METHOD, feature_arr, label_arr):
 		if MODEL_METHOD == 0:
-				# feature_arr = np.vstack(feature_arr)
 				svm(feature_arr, label_arr)
 		elif MODEL_METHOD == 1:
 				random_forest(feature_arr, label_arr)

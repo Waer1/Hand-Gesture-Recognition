@@ -152,5 +152,6 @@ def preprocess(img):
 
     wanted_size = (500, 281)
     final_res = cv.resize(grey_scale_res, wanted_size)
+    ##################################################################
 
     return final_res
