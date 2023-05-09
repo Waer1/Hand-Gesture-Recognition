@@ -42,73 +42,229 @@ def LBP(image, radius = 1, method = 'uniform'):
 
 # =========================================================================
 # SIFT Feature Extraction
-# =========================================================================
-def SIFT(image):
-    # assume this image to be gray scale
-    # Create a SIFT object
+def SIFT(image, feature_arr):
+    # Initialize the SIFT detector
     sift = cv2.xfeatures2d.SIFT_create()
 
-    # Detect keypoints and compute descriptors
-    keypoints, descriptors = sift.detectAndCompute(image, None)
-
-    # Initialize empty feature list
-    features = []
-
-    # Loop through each keypoint and descriptor pair
-    for i in range(len(keypoints)):
-        # Get current keypoint and descriptor
-        kp = keypoints[i]
-        desc = descriptors[i]
-
-        # Convert keypoint to feature vector
-        feature = np.concatenate((kp.pt, kp.size, kp.angle, kp.response, kp.octave, desc))
-        
-        # Append feature to feature list
-        features.append(feature)
-        
-    # Convert features list to NumPy array
-    features = np.array(features)
-    return features
+    # Extract SIFT features from all the images
+    kp, des = sift.detectAndCompute(image, None)
+    feature_arr
+    return des
 # =========================================================================
 
 
 # =========================================================================
 # SURF Feature Extraction
 # =========================================================================
-def SURF(image):
-    # assume this image to be gray scale
-    # Create a SURF object
-    surf = cv2.xfeatures2d.SURF_create()
 
-    # Detect keypoints and compute descriptors
+def SURF(image):
+    surf = cv2.xfeatures2d.SURF_create()
     keypoints, descriptors = surf.detectAndCompute(image, None)
 
-    # Initialize empty feature list
-    features = []
-
-    # Loop through each keypoint and descriptor pair
-    for i in range(len(keypoints)):
-        # Get current keypoint and descriptor
-        kp = keypoints[i]
-        desc = descriptors[i]
-
-        # Convert keypoint to feature vector
+    feature_list = []
+    for kp, desc in zip(keypoints, descriptors):
         feature = np.concatenate((kp.pt, kp.size, kp.angle, kp.response, kp.octave, desc))
-        
-        # Append feature to feature list
-        features.append(feature)
-        
-    # Convert features list to NumPy array
-    features = np.array(features)
-    return features
+        feature_list.append(feature)
+    
+    if len(feature_list) == 0:
+        return None
+    
+    feature_arr = np.array(feature_list, dtype=object)
+    return feature_arr
+
+
+# =========================================================================
+# normalize features
 # =========================================================================
 
-def get_feature(FEATURE_METHOD, image):
-		if FEATURE_METHOD == '0':
-				return HOG(image)
-		elif FEATURE_METHOD == '1':
-				return LBP(image)
-		elif FEATURE_METHOD == '2':
-				return SIFT(image)
-		elif FEATURE_METHOD == '3':
-				return SURF(image)
+def normalize_features(feature_arrays):
+    # Find the maximum size of the feature arrays
+    max_size = max(len(arr) for arr in feature_arrays)
+
+    # Pad the feature arrays with zeros
+    padded_feature_arrays = []
+    for arr in feature_arrays:
+        if len(arr) < max_size:
+            padded_arr = np.pad(arr, ((0, max_size - len(arr)), (0, 0)), mode='constant')
+        else:
+            padded_arr = arr
+        padded_feature_arrays.append(padded_arr)
+
+    return padded_feature_arrays
+
+# =========================================================================
+import os
+import cv2
+from preprocessing import preprocess
+import numpy as np
+
+
+def HOG_MAIN(images_dir):
+    feature_arr = []
+    label_arr = []
+
+    for path in images_dir:
+        # get all the image names
+        images = os.listdir(f"./Dataset/{path}")
+        
+            
+        # iterate over the image names, get the label
+        for image in images:
+            image_path = f"./Dataset/{path}/{image}"
+
+            try:
+
+                image = cv2.imread(image_path)
+
+                # Preprocessing phase
+                image = preprocess(image)
+
+                # Feature extraction phase
+                feature = HOG(image)
+
+                # update the data and labels
+                feature_arr.append(feature)
+                label_arr.append(path)
+            except:
+                  print(image_path)
+
+    return feature_arr, label_arr
+
+
+def LBP_MAIN(images_dir):
+    feature_arr = []
+    label_arr = []
+
+    for path in images_dir:
+        # get all the image names
+        images = os.listdir(f"./Dataset/{path}")
+        
+        # iterate over the image names, get the label
+        for image in images:
+            image_path = f"./Dataset/{path}/{image}"
+
+            try:
+                image = cv2.imread(image_path)
+
+                # Preprocessing phase
+                image = preprocess(image)
+
+                # Feature extraction phase
+                feature = LBP(image)
+
+                # update the data and labels
+                feature_arr.append(feature)
+                label_arr.append(path)
+            except:
+                  print(image_path)
+
+    return feature_arr, label_arr
+
+
+import os
+import cv2
+import numpy as np
+
+def SIFT_MAIN(images_dir):
+    descriptors_list = []
+    label_list = []
+    max_length = 0
+
+    for path in images_dir:
+        # get all the image names
+        images = os.listdir(f"./Dataset/{path}")
+
+        # iterate over the image names, get the label
+        for image in images:
+            image_path = f"./Dataset/{path}/{image}"
+
+            # Read image
+            image = cv2.imread(image_path)
+
+            # Preprocessing phase
+            image = preprocess(image)
+
+            # SIFT feature extraction
+            sift = cv2.SIFT_create()
+            keypoints, descriptors = sift.detectAndCompute(image, None)
+
+            if descriptors.shape[0] > max_length:
+                max_length = descriptors.shape[0]
+
+            # Append feature and label to respective lists
+            descriptors_list.append(descriptors)
+            label_list.append(path)
+
+    for i in range(len(descriptors_list)):
+        descriptors = descriptors_list[i]
+        if descriptors.shape[0] < max_length:
+            padding = np.zeros((max_length - descriptors.shape[0], descriptors.shape[1]), dtype=np.float32)
+            descriptors = np.vstack((descriptors, padding))
+            descriptors_list[i] = descriptors
+    
+    
+    descriptors_list = np.array(descriptors_list)
+
+    nsamples, nx, ny = descriptors_list.shape
+    d2_train_dataset = descriptors_list.reshape((nsamples,nx*ny))
+
+    return d2_train_dataset, np.array(label_list)
+
+
+
+
+def SURF_MAIN(images_dir):
+    descriptors_list = []
+    label_list = []
+    max_length = 0
+
+    for path in images_dir:
+        # get all the image names
+        images = os.listdir(f"./Dataset/{path}")
+
+        # iterate over the image names, get the label
+        for image in images:
+            image_path = f"./Dataset/{path}/{image}"
+
+            # Read image
+            image = cv2.imread(image_path)
+
+            # Preprocessing phase
+            image = preprocess(image)
+
+            # SIFT feature extraction
+            surf = cv2.xfeatures2d.SURF_create()
+            keypoints, descriptors = surf.detectAndCompute(image, None)
+
+            if descriptors.shape[0] > max_length:
+                max_length = descriptors.shape[0]
+
+            # Append feature and label to respective lists
+            descriptors_list.append(descriptors)
+            label_list.append(path)
+
+    for i in range(len(descriptors_list)):
+        descriptors = descriptors_list[i]
+        if descriptors.shape[0] < max_length:
+            padding = np.zeros((max_length - descriptors.shape[0], descriptors.shape[1]), dtype=np.float32)
+            descriptors = np.vstack((descriptors, padding))
+            descriptors_list[i] = descriptors
+    
+    
+    descriptors_list = np.array(descriptors_list)
+
+    nsamples, nx, ny = descriptors_list.shape
+    d2_train_dataset = descriptors_list.reshape((nsamples,nx*ny))
+
+    return d2_train_dataset, np.array(label_list)
+
+
+def get_feature(FEATURE_METHOD, images_dir):
+		if FEATURE_METHOD == 0:
+				return HOG_MAIN(images_dir)
+		elif FEATURE_METHOD == 1:
+				return LBP_MAIN(images_dir)
+		elif FEATURE_METHOD == 2:
+				return SIFT_MAIN(images_dir)
+		elif FEATURE_METHOD == 3:
+				return SURF_MAIN(images_dir)

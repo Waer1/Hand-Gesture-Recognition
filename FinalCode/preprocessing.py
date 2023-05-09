@@ -150,7 +150,7 @@ def preprocess(img):
     ##################################################################
     grey_scale_res = grey_scale_res[min_y_coord:max_y_coord, min_x_coord:max_x_coord]
 
-    wanted_size = (3900, 1900)
+    wanted_size = (500, 281)
     final_res = cv.resize(grey_scale_res, wanted_size)
 
     return final_res

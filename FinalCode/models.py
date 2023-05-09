@@ -20,13 +20,12 @@ from sklearn.tree import DecisionTreeClassifier
 # SVM Classifier
 # =========================================================================
 def svm(feature_arr, label_arr):
-		print("iam start svm")
 		# Receive the feature array and label array
 		X = np.array(feature_arr)
 		y = np.array(label_arr)
 
 		# Split the dataset into training and testing sets
-		X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+		X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
 
 		# Train the SVM classifier
 		svm_classifier = SVC(kernel='linear', C=1.0)
@@ -38,7 +37,6 @@ def svm(feature_arr, label_arr):
 		# Evaluate the classifier
 		y_pred = svm_classifier.predict(X_test)
 		accuracy = accuracy_score(y_test, y_pred)
-		print("iam end svm")
 
 		print(f'Accuracy: {accuracy}')
 # =========================================================================
@@ -119,12 +117,12 @@ def decision_tree(feature_arr, label_arr):
 # =========================================================================
 
 def get_model(MODEL_METHOD, feature_arr, label_arr):
-		print(MODEL_METHOD , MODEL_METHOD == '0')
-		if MODEL_METHOD == '0':
+		if MODEL_METHOD == 0:
+				# feature_arr = np.vstack(feature_arr)
 				svm(feature_arr, label_arr)
-		elif MODEL_METHOD == '1':
+		elif MODEL_METHOD == 1:
 				random_forest(feature_arr, label_arr)
-		elif MODEL_METHOD == '2':
+		elif MODEL_METHOD == 2:
 				naive_bayes(feature_arr, label_arr)
-		elif MODEL_METHOD == '3':
+		elif MODEL_METHOD == 3:
 				decision_tree(feature_arr, label_arr)
