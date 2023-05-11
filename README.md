@@ -56,7 +56,7 @@
   </li>
   <li><strong><em>Install dependencies</em></strong>
     <div>
-        <h4>Please refer to previous Built Built With list to install all needed libraries</h4>
+        <h4>Please refer to previous Built With list to install all needed libraries</h4>
     </div>
   </li>
   <li><strong><em>Train the model</em></strong>
