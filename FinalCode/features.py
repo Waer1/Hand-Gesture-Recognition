@@ -17,6 +17,7 @@ def HOG(image, orientations = 9, pixels_per_cell = (8, 8), cells_per_block = (3,
     hog_features = np.pad(hog_features, (0, max_size - hog_features.shape[0]), mode='constant')
     hog_features = np.ravel(hog_features)
     return hog_features
+
 # =========================================================================
 
 
@@ -77,7 +78,7 @@ def SURF(image):
 # =========================================================================
 # Mains
 # =========================================================================
-def HOG_MAIN(images_dir, dataset_dir):
+def HOG_MAIN(images_dir, dataset_dir, orientations = 9, pixels_per_cell = (8, 8), cells_per_block = (3, 3)):
 		feature_arr = []
 		label_arr = []
 
@@ -88,7 +89,6 @@ def HOG_MAIN(images_dir, dataset_dir):
 				# iterate over the image names, get the label
 				for image in images:
 						image_path = dataset_dir + f"{path}/{image}"
-
 						try:
 								image = cv2.imread(image_path)
 
@@ -96,7 +96,7 @@ def HOG_MAIN(images_dir, dataset_dir):
 								image = preprocess(image)
 
 								# Feature extraction phase
-								feature = HOG(image)
+								feature = HOG(image, orientations = orientations, pixels_per_cell = pixels_per_cell, cells_per_block = cells_per_block)
 
 								# update the data and labels
 								feature_arr.append(feature)
@@ -236,7 +236,7 @@ def ORB_MAIN(images_dir, dataset_dir):
 
 def get_feature(FEATURE_METHOD, images_dir, dataset_dir):
 		if FEATURE_METHOD == 0:
-				return HOG_MAIN(images_dir, dataset_dir)
+				return HOG_MAIN(images_dir, dataset_dir, orientations = 9, pixels_per_cell = (8, 8), cells_per_block = (3, 3))
 		elif FEATURE_METHOD == 1:
 				return LBP_MAIN(images_dir, dataset_dir)
 		elif FEATURE_METHOD == 2:

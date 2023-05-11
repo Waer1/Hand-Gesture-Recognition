@@ -3,6 +3,10 @@ from features import get_feature
 from models import get_model
 import argparse
 import os
+from models import svm
+from features import HOG_MAIN
+import itertools
+
 
 # Create argument parser
 parser = argparse.ArgumentParser()
@@ -16,6 +20,7 @@ args = parser.parse_args()
 # Read feature and model values
 FEATURE_METHOD = args.feature
 MODEL_METHOD = args.model
+
 
 # get all the image folder paths
 dataset = "./Dataset/"

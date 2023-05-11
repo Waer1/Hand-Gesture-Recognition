@@ -19,7 +19,7 @@ from sklearn.tree import DecisionTreeClassifier
 # =========================================================================
 # SVM Classifier
 # =========================================================================
-def svm(feature_arr, label_arr):
+def svm(feature_arr, label_arr, kernel='linear' , C=1.0, gamma=0.008):
 		# Receive the feature array and label array
 		X = np.array(feature_arr)
 		y = np.array(label_arr)
@@ -28,7 +28,7 @@ def svm(feature_arr, label_arr):
 		X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=42)
 
 		# Train the SVM classifier
-		svm_classifier = SVC(kernel='linear', C=1.0)
+		svm_classifier = SVC(kernel=kernel, C=C , gamma=gamma)
 		svm_classifier.fit(X_train, y_train)
 
 		# Save the model as a pickle file
@@ -39,6 +39,7 @@ def svm(feature_arr, label_arr):
 		accuracy = accuracy_score(y_test, y_pred)
 
 		print(f'Accuracy: {accuracy}')
+		return accuracy
 # =========================================================================
 
 
