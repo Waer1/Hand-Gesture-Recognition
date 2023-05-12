@@ -18,7 +18,7 @@
 <h2 style="display:inline">📝 Table of Contents</h2>
 </summary>
 
-- [Built With](#built-with--)
+- [Built With](#built-with-)
 - [Getting started](#getting-started)
 - [Description](#description)
 - [Project Pipeline](#project-pipeline)
