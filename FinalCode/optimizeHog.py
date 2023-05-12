@@ -1,32 +1,47 @@
 
 # Imports
-from features import get_feature
-from models import get_model
+import cv2
+from preprocessing import preprocess
 from models import svm
-from features import HOG_MAIN
-import itertools
-from joblib import Parallel, delayed
+from features import hog_features
+from sklearn.metrics import accuracy_score
 import os
 
 # get all the image folder paths
-dataset = "./Dataset/"
-image_paths = os.listdir(dataset)
-
-# get all the image folder paths
-dataset = "./Dataset/"
-image_paths = os.listdir(dataset)
-
-from joblib import Parallel, delayed
-
-# get all the image folder paths
-dataset = "./Dataset/"
+dataset = "../../Dataset/"
 image_paths = os.listdir(dataset)
 
 def run_single(orientation, pixels_per_cell, cells_per_block, kernel, C, gamma):
-    feature_arr, label_arr = HOG_MAIN(image_paths, dataset, orientation, pixels_per_cell, cells_per_block)
-    accuracy = svm(feature_arr, label_arr, kernel, C, gamma)
-    print(f"Orientation: {orientation}, Pixels per cell: {pixels_per_cell}, Cells per block: {cells_per_block}, Kernel: {kernel}, C: {C}, Gamma: {gamma}, Accuracy: {accuracy}")
-    return accuracy
+		feature_arr = []
+		label_arr = []
+
+		for path in image_paths:
+				# get all the image names
+				images = os.listdir(dataset + path)
+
+				# iterate over the image names, get the label
+				for image in images:
+						image_path = dataset + f"{path}/{image}"
+						try:
+								image = cv2.imread(image_path)
+
+								# Preprocessing phase
+								image = preprocess(image)
+                
+								# Feature extraction phase
+								feature = hog_features(image, orientations = orientation, pixels_per_cell = pixels_per_cell, cells_per_block = cells_per_block)
+
+								# update the data and labels
+								feature_arr.append(feature)
+								label_arr.append(path)
+						except:
+								print(image_path)
+    
+		model, X_test, y_test = svm(feature_arr, label_arr, kernel, C, gamma)
+		y_pred = model.predict(X_test)
+		accuracy = accuracy_score(y_test, y_pred)
+		print(f"Orientation: {orientation}, Pixels per cell: {pixels_per_cell}, Cells per block: {cells_per_block}, Kernel: {kernel}, C: {C}, Gamma: {gamma}, Accuracy: {accuracy}")
+		return accuracy
 
 
 def run_HOG_SVM(orientations_list, pixels_per_cell_list, cells_per_block_list, kernel_list, C_list, gamma_list):
