@@ -160,3 +160,23 @@
   </p>
 
 </blockquote>
+
+<hr>
+
+<h2 href="#Features-Extraction">Features Extraction Module</h2>
+
+<blockquote style="font-size: 15px; font-weight: 500">
+  <p>
+    We tried multiple algorithms: SURF, SIFT, LBP, and HOG. And we selected HOG (Histogram of Oriented Gradients) for providing high accuracy.
+    <br>
+    <br>
+    HOG algorithm is a computer vision technique used to extract features from images. It works by dividing an image into small cells and computing the gradient orientation and magnitude for each pixel within the cell. The gradient orientations are then binned into a histogram, which represents the distribution of edge orientations within that cell.
+    <br>
+    <br>
+    The HOG algorithm has high accuracy because it is able to capture important information about the edges and contours in an image. This information can be used to identify objects or patterns within the image, even if they have varying lighting conditions.
+    <br>
+    <br>
+    We apply HOG algorithm using hog() from skimage.feature, and with making sure that all features vectors are with the same length by padding zeros.
+  </p>
+
+</blockquote>
