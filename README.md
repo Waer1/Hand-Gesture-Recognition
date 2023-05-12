@@ -26,6 +26,7 @@
 - [Features Extraction Module](#features-extraction-module)
 - [Model Training Module](#model-training-module)
 - [Performance Analysis and Results](#performance-analysis-and-results)
+- [Enhancements and Future Work](#enhancements-and-future-work)
 </details>
 <hr>
 
@@ -230,7 +231,7 @@
 
 <blockquote style="font-size: 15px; font-weight: 500">
   <p>
-    Our result is that the trained model have predicted %83 of images correctly.
+    Our result is that the trained model have predicted 83% of images correctly.
     <br>
     <br>
     You can run with your data under <code> data </code> folder under the main folder <code>Hand-Gesture-Recognition</code> the script <code>./FinalCode/app.py</code> to see output label and time taken for processing every image by using this command:
@@ -238,4 +239,26 @@
     <code>$ py .\FinalCode\app.py --feature 0</code>
   </p>
 
+</blockquote>
+
+<hr>
+
+<h2 href="#Enhancements-and-Future-Work">Enhancements and Future Work</h2>
+
+<blockquote style="font-size: 15px; font-weight: 500">
+  <p>
+    Although we have optained an accuracy of 83% on our dataset, we believe that our work would be improved using these points.
+    <br>
+    <ol>
+      <li>
+        <strong><em>Larger dataset.</em></strong>
+      </li>
+      <li>
+        <strong><em>Using Deep Neural Networks.</em></strong>
+      </li>
+      <li>
+        <strong><em>Better imaging conditions.</em></strong>
+      </li>
+    </ol>
+  </p>
 </blockquote>
