@@ -21,6 +21,7 @@
 - [Built With](#built-with--)
 - [Getting started](#getting-started)
 - [Description](#description)
+- [Project Pipeline](#pipeline)
 </details>
 <hr>
 
@@ -86,3 +87,16 @@
   </p>
 
 </blockquote>
+
+<hr>
+
+<h2 href="#Pipeline">Project Pipeline</h2>
+
+<blockquote style="font-size: 15px; font-weight: 500">
+  <p >
+    You can also look at it at <code>./Documentation/Project Pipeline.drawio</code>
+  </p>
+
+</blockquote>
+
+![alt text](./Documentation/ProjectPipeline.png)
