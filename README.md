@@ -153,7 +153,7 @@
         <strong><em>Get the image with the largest contour area.</em></strong>
       </li>
       <li>
-        <strong><em>Apply histogram equaliztion to make the image more clear.</em></strong>
+        <strong><em>Apply histogram equalization to make the image more clear.</em></strong>
       </li>
       <li>
         <strong><em>Cut the greyscale image around the largest contour.</em></strong>
