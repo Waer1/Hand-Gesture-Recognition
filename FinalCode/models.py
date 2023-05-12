@@ -3,7 +3,7 @@ import pickle
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-
+import time
 # SVM
 from sklearn.svm import SVC
 
@@ -15,6 +15,9 @@ from sklearn.naive_bayes import GaussianNB
 
 # Decision Tree
 from sklearn.tree import DecisionTreeClassifier
+
+import random
+import string
 
 # =========================================================================
 # SVM Classifier
@@ -31,14 +34,15 @@ def svm(feature_arr, label_arr, kernel='linear' , C=1.0, gamma=0.008):
 		svm_classifier = SVC(kernel=kernel, C=C , gamma=gamma)
 		svm_classifier.fit(X_train, y_train)
 
-		# Save the model as a pickle file
-		pickle.dump(svm_classifier, open('svm_classifier.pkl', 'wb'))
-
+		timestamp = int(time.time())
+		random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+		model_name = f'svm_classifier_{timestamp}_{random_string}.pkl'
+		pickle.dump(svm_classifier, open(model_name, 'wb'))
+		
 		# Evaluate the classifier
 		y_pred = svm_classifier.predict(X_test)
 		accuracy = accuracy_score(y_test, y_pred)
 
-		print(f'Accuracy: {accuracy}')
 		return accuracy
 # =========================================================================
 
