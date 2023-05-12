@@ -21,7 +21,10 @@
 - [Built With](#built-with--)
 - [Getting started](#getting-started)
 - [Description](#description)
-- [Project Pipeline](#pipeline)
+- [Project Pipeline](#project-pipeline)
+- [Preprocessing Module](#preprocessing-module)
+- [Features Extraction Module](#features-extraction-module)
+- [Model Training Module](#model-training-module)
 </details>
 <hr>
 
@@ -177,6 +180,45 @@
     <br>
     <br>
     We apply HOG algorithm using hog() from skimage.feature, and with making sure that all features vectors are with the same length by padding zeros.
+  </p>
+
+</blockquote>
+
+<hr>
+
+<h2 href="#Model-Training">Model Training Module</h2>
+
+<blockquote style="font-size: 15px; font-weight: 500">
+  <p>
+    We tried multiple algorithms: Random Forest, Naive Bayes, Decision Tree, and SVM. 
+    And we selected SVM (Support Vector Machine) for providing high accuracy.
+    <br>
+    <br>
+    SVM is a powerful and popular machine learning algorithm used for classification and regression analysis. It works by finding the best hyperplane or decision boundary that separates the data into different classes. The hyperplane is chosen such that it maximizes the margin between the two classes, which helps to improve the generalization ability of the model.
+    <br>
+    <br>
+    SVM has several advantages that make it a good choice for classification tasks. Some of these advantages include:
+    <ol>
+      <li>
+        Effective in high-dimensional spaces: SVM can effectively handle datasets with a large number of features or dimensions.
+      </li>
+      <li>
+        Robust to outliers: SVM is less sensitive to outliers in the data compared to other algorithms.
+      </li>
+      <li>
+        Versatile: SVM can be used with different types of kernels, such as linear and polynomial, which makes it versatile and applicable to different types of datasets.
+      </li>
+      <li>
+        Memory efficient: SVM uses a subset of the training data called support vectors to build the model, which makes it memory efficient and scalable to large datasets.
+      </li>
+      <li>
+        Good generalization performance: SVM aims to maximize the margin between the two classes, which helps to improve the generalization performance of the model.
+      </li>
+    </ol>
+    Overall, SVM is a powerful and flexible algorithm that can be used for various classification tasks in machine learning.
+    <br>
+    <br>
+    We apply SVM algorithm using SVC() from sklearn.svm with linear kernel, and %80 of dataset images for training, and %20 of dataset images for testing.
   </p>
 
 </blockquote>
