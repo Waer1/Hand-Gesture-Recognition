@@ -237,6 +237,7 @@
     You can run with your data under <code> data </code> folder under the main folder <code>Hand-Gesture-Recognition</code> the script <code>./FinalCode/app.py</code> to see output label and time taken for processing every image by using this command:
     <br>
     <code>$ py .\FinalCode\app.py --feature 0</code>
+    <br>
     <strong><em>Note: You should see the output in 2 files: <code>results.txt</code> for output classes and <code>time.txt</code> for time taken to process the image after reading it and just after the prediction, every line in these 2 files is for one image.</em></strong>
   </p>
 
