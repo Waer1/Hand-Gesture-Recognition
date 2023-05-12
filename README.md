@@ -25,6 +25,7 @@
 - [Preprocessing Module](#preprocessing-module)
 - [Features Extraction Module](#features-extraction-module)
 - [Model Training Module](#model-training-module)
+- [Performance Analysis and Results](#performance-analysis-and-results)
 </details>
 <hr>
 
@@ -219,6 +220,22 @@
     <br>
     <br>
     We apply SVM algorithm using SVC() from sklearn.svm with linear kernel, and %80 of dataset images for training, and %20 of dataset images for testing.
+  </p>
+
+</blockquote>
+
+<hr>
+
+<h2 href="#Performance-Analysis-and-Results">Performance Analysis and Results</h2>
+
+<blockquote style="font-size: 15px; font-weight: 500">
+  <p>
+    Our result is that the trained model have predicted %83 of images correctly.
+    <br>
+    <br>
+    You can run with your data under <code> data </code> folder under the main folder <code>Hand-Gesture-Recognition</code> the script <code>./FinalCode/app.py</code> to see output label and time taken for processing every image by using this command:
+    <br>
+    <code>$ py .\FinalCode\app.py --feature 0</code>
   </p>
 
 </blockquote>
