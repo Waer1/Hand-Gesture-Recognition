@@ -14,15 +14,16 @@ import numpy as np
     simply modifed (cr || cb) to be ((cr || cb) && range_segmentation).
 '''
 
+
 def range_segmentation(ycrcb_image):
     '''
         The `range_segmentation` function takes an input image in YCrCb color space
-        1- Segments the image based on the lower and upper bounds of skin color defined in YCrCb color space.
-        2- It applies morphological operations to remove noise,
-        3- Finds the contours in the binary segmented image, gets the contour with the largest area,
-        4- Creates a blank image to draw and fill the contours,
-        5- Draws the largest contour on the blank image and fills the contour with white color,
-        6- Returns the image with the largest contour drawn on it.
+        1- Segment the image based on the lower and upper bounds of skin color defined in YCrCb color space.
+        2- Apply morphological operations to remove noise,
+        3- Find the contours in the binary segmented image, get the contour with the largest area,
+        4- Create a blank image to draw and fill the contours,
+        5- Draw the largest contour on the blank image and fill the contour with white color,
+        6- Return the image with the largest contour drawn on it.
     '''
     ##################################################################
     # Segment the image based on the lower and upper bounds of skin color defined in YCrCb color space.
@@ -45,7 +46,7 @@ def range_segmentation(ycrcb_image):
     ##################################################################
 
     ##################################################################
-    #finds the contours in the binary segmented image, gets the contour with the largest area
+    # finds the contours in the binary segmented image, gets the contour with the largest area
     # Find the contours in the binary segmented image
     contours, hierarchy = cv.findContours(
         img_dilate, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
@@ -68,14 +69,16 @@ def range_segmentation(ycrcb_image):
 def preprocess(img):
     '''
         1- Convert the input image to YCrCb color space.
-        2- Get the segmented using 'range_segmentation' method.
+        2- Get the segmented image using 'range_segmentation' method.
         3- Extract the individual color components.
         4- Apply thresholding on cr and cb components.
         5- (cr || cb) && range_segmented_image.
         6- Apply morphological operations to remove noise.
         7- Get the contour with the largest area.
         8- Segment the image in grey scale.
-        9- Cut the greyscale image around the largest contour.
+        9- Apply histogram equaliztion to make the image more clear.
+        10- Cut the greyscale image around the largest contour.
+        11- Resize the image to small size to reduce extracted features array length.
     '''
 
     ##################################################################
@@ -136,7 +139,8 @@ def preprocess(img):
     largest_contour_image = np.zeros_like(img_dilate)
 
     # Draw the largest contour on the blank image and fill the contour with white color(255,255)
-    cv.drawContours(largest_contour_image, [largest_contour], 0, (255, 255), -1)
+    cv.drawContours(largest_contour_image, [
+                    largest_contour], 0, (255, 255), -1)
     ##################################################################
 
     ##################################################################
@@ -144,12 +148,17 @@ def preprocess(img):
     # Segment the grey scale image using the binary image
     grey_scale_res = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
     grey_scale_res[largest_contour_image == 0] = 0
+    ##################################################################
 
+    ##################################################################
     # Apply histogram equaliztion to make the image more clear (May be not needed)
     grey_scale_res = cv.equalizeHist(grey_scale_res)
     ##################################################################
-    grey_scale_res = grey_scale_res[min_y_coord:max_y_coord, min_x_coord:max_x_coord]
-
+    # Cut the greyscale image around the largest contour.
+    grey_scale_res = grey_scale_res[min_y_coord:max_y_coord,
+                                    min_x_coord:max_x_coord]
+    ##################################################################
+    # Resize the image to small size to reduce extracted features array length.
     wanted_size = (128, 64)
     final_res = cv.resize(grey_scale_res, wanted_size)
     ##################################################################

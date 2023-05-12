@@ -100,3 +100,63 @@
 </blockquote>
 
 ![alt text](./Documentation/ProjectPipeline.png)
+
+<hr>
+
+<h2 href="#Preprocessing">Preprocessing Module</h2>
+
+<blockquote style="font-size: 15px; font-weight: 500">
+  <p >
+    Our main problem at this stage is the fingers shadows due to poor imaging conditions, so, we overcome over that by applying multiple steps for every input image:
+    <ol>
+      <li>
+        <strong><em>Convert the input image to YCrCb color space.</em></strong>
+      </li>
+      <li>
+        <strong><em>Get the segmented image using 'range_segmentation' method as follows:</em></strong>
+        <ol>
+          <li>
+            Segment the image based on the lower and upper bounds of skin color defined in YCrCb color space.
+          </li>
+          <li>
+            Apply morphological operations to remove noise.
+          </li>
+          <li>
+            Find the contours in the binary segmented image, get the contour with the largest area.
+          </li>
+          <li>
+            Create a blank image to draw and fill the contours.
+          </li>
+          <li>
+            Draw the largest contour on the blank image and fill the contour with white color.
+          </li>
+          <li>
+            Return the image with the largest contour drawn on it.
+          </li>
+        </ol>
+      </li>
+      <li>
+        <strong><em>Apply thresholding on cr and cb components.</em></strong>
+      </li>
+      <li>
+        <strong><em>Apply the following formula bitwise <code>(cr || cb) && range_segmented_image.</code></em></strong>
+      </li>
+      <li>
+        <strong><em>Apply morphological operations to remove noise.</em></strong>
+      </li>
+      <li>
+        <strong><em>Get the image with the largest contour area.</em></strong>
+      </li>
+      <li>
+        <strong><em>Apply histogram equaliztion to make the image more clear.</em></strong>
+      </li>
+      <li>
+        <strong><em>Cut the greyscale image around the largest contour.</em></strong>
+      </li>
+      <li>
+        <strong><em>Resize the image to small size to reduce extracted features array length.</em></strong>
+      </li>
+    </ol>
+  </p>
+
+</blockquote>
