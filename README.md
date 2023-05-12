@@ -24,7 +24,7 @@
 </details>
 <hr>
 
-<h2 href="#BuiltWith">Built With : </h2>
+<h2 href="#BuiltWith">Built With </h2>
  <ul>
   <li><a href="https://www.python.org/">Python</a></li>
   <li><a href="https://pypi.org/project/opencv-python/">CV2</a></li>
@@ -62,12 +62,16 @@
   <li><strong><em>Train the model</em></strong>
     <div>
         <code>$ py .\FinalCode\main.py --feature 0  --model 0 </code>
+        <br>
+        <strong><em>Note: You should put the images under a folder named <code>Dataset</code> under the main folder <code>Hand-Gesture-Recognition</code></em></strong>
     </div>
   </li>
   
   <li><strong><em>Test the model and performance analysis</em></strong>
     <div>
         <code>$ py .\FinalCode\app.py --feature 0 </code>
+        <br>
+        <strong><em>Note: You should put the images under a folder named <code>data</code> under the main folder <code>Hand-Gesture-Recognition</code></em></strong>
     </div>
   </li>
 
