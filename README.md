@@ -231,7 +231,7 @@
 
 <blockquote style="font-size: 15px; font-weight: 500">
   <p>
-    Our result is that the trained model have predicted 83% of images correctly.
+    Our result is that the trained model predicted 83% of images correctly.
     <br>
     <br>
     You can run with your data under <code> data </code> folder under the main folder <code>Hand-Gesture-Recognition</code> the script <code>./FinalCode/app.py</code> to see output label and time taken for processing every image by using this command:
