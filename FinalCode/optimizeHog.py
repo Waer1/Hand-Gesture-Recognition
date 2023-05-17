@@ -58,30 +58,30 @@ def run_HOG_SVM(orientations_list, pixels_per_cell_list, cells_per_block_list, k
     best_params['orientations'] = orientations_list[0]
 
 
-    for gamma in gamma_list:
-        accuracy = run_single(orientations_list[0] , pixels_per_cell_list[0], cells_per_block_list[0], kernel_list[0], C_list[0], gamma)
-        if accuracy > best_accuracy:
-            best_accuracy = accuracy
-            best_params['gamma'] = gamma
+    # for gamma in gamma_list:
+    #     accuracy = run_single(orientations_list[0] , pixels_per_cell_list[0], cells_per_block_list[0], kernel_list[0], C_list[0], gamma)
+    #     if accuracy > best_accuracy:
+    #         best_accuracy = accuracy
+    #         best_params['gamma'] = gamma
     
-    print("the best gamma parameters were: ", best_params['gamma'])
+    # print("the best gamma parameters were: ", best_params['gamma'])
 
 
-    for c_val in C_list:
-        accuracy = run_single(orientations_list[0] , pixels_per_cell_list[0], cells_per_block_list[0], kernel_list[0], c_val, best_params['gamma'])
-        if accuracy > best_accuracy:
-            best_accuracy = accuracy
-            best_params['C'] = gamma
+    # for c_val in C_list:
+    #     accuracy = run_single(orientations_list[0] , pixels_per_cell_list[0], cells_per_block_list[0], kernel_list[0], c_val, best_params['gamma'])
+    #     if accuracy > best_accuracy:
+    #         best_accuracy = accuracy
+    #         best_params['C'] = gamma
 
-    print("the best C parameters were: ", best_params['C'])
+    # print("the best C parameters were: ", best_params['C'])
 
-    for kernal_val in kernel_list:
-        accuracy = run_single(orientations_list[0] , pixels_per_cell_list[0], cells_per_block_list[0], kernal_val, best_params['C'], best_params['gamma'])
-        if accuracy > best_accuracy:
-            best_accuracy = accuracy
-            best_params['kernel'] = kernal_val
+    # for kernal_val in kernel_list:
+    #     accuracy = run_single(orientations_list[0] , pixels_per_cell_list[0], cells_per_block_list[0], kernal_val, best_params['C'], best_params['gamma'])
+    #     if accuracy > best_accuracy:
+    #         best_accuracy = accuracy
+    #         best_params['kernel'] = kernal_val
 
-    print("the best kernel parameters were: ", best_params['kernel'])
+    # print("the best kernel parameters were: ", best_params['kernel'])
 
     for cell_per_block_val in cells_per_block_list:
         accuracy = run_single(orientations_list[0] , pixels_per_cell_list[0], cell_per_block_val, best_params['kernel'], best_params['C'], best_params['gamma'])
@@ -89,35 +89,42 @@ def run_HOG_SVM(orientations_list, pixels_per_cell_list, cells_per_block_list, k
             best_accuracy = accuracy
             best_params['cells_per_block'] = cell_per_block_val
 
-    print("the best cells_per_block parameters were: ", best_params['cells_per_block'])
+    # print("the best cells_per_block parameters were: ", best_params['cells_per_block'])
 
-    for pixels_per_cell_val in pixels_per_cell_list:
-        accuracy = run_single(orientations_list[0] , pixels_per_cell_val, best_params['cells_per_block'] ,  best_params['kernel'], best_params['C'], best_params['gamma'])
-        if accuracy > best_accuracy:
-            best_accuracy = accuracy
-            best_params['pixels_per_cell'] = pixels_per_cell_val
+    # for pixels_per_cell_val in pixels_per_cell_list:
+    #     accuracy = run_single(orientations_list[0] , pixels_per_cell_val, best_params['cells_per_block'] ,  best_params['kernel'], best_params['C'], best_params['gamma'])
+    #     if accuracy > best_accuracy:
+    #         best_accuracy = accuracy
+    #         best_params['pixels_per_cell'] = pixels_per_cell_val
 
-    print("the best pixels_per_cell parameters were: ", best_params['pixels_per_cell'])
+    # print("the best pixels_per_cell parameters were: ", best_params['pixels_per_cell'])
 
-    for orientations_val in orientations_list:
-        accuracy = run_single(orientations_val , best_params['pixels_per_cell'], best_params['cells_per_block'] ,  best_params['kernel'], best_params['C'], best_params['gamma'])
-        if accuracy > best_accuracy:
-            best_accuracy = accuracy
-            best_params['orientations'] = orientations_val
+    # for orientations_val in orientations_list:
+    #     accuracy = run_single(orientations_val , best_params['pixels_per_cell'], best_params['cells_per_block'] ,  best_params['kernel'], best_params['C'], best_params['gamma'])
+    #     if accuracy > best_accuracy:
+    #         best_accuracy = accuracy
+    #         best_params['orientations'] = orientations_val
 
-    print("the best orientations parameters were: ", best_params['orientations'])
+    # print("the best orientations parameters were: ", best_params['orientations'])
 
     return best_accuracy, best_params
                                 
 
-orientations_list = [9, 5, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30]
-pixels_per_cell_list = [(8, 8), (6, 6), (4, 4), (8, 8), (10, 10), (12, 12)]
-cells_per_block_list = [(1, 1), (2, 2), (3, 3), (4, 4)]
-kernel = ["linear", "poly", "rbf", "sigmoid"]
-C = [0.5, 1.5, 0.0001, 0.01, 0.1, 1, 10, 100, 1000]
-gamma = ["scale", "auto", 0.1, 1, 0.0001, 0.001, 0.01, 10, 100]
+orientations_list = [9]
+pixels_per_cell_list = [(8, 8)] # (8,8)
+cells_per_block_list = [(2, 2)] # (2,2)
+kernel = ["poly"]
+C = [0.5]
+gamma = ["scale"]
 
 best_accuracy, best_params = run_HOG_SVM(orientations_list, pixels_per_cell_list , cells_per_block_list , kernel , C , gamma)
 
 print(f"Best accuracy: {best_accuracy}")
 print(f"Best params: {best_params}")
+
+
+
+
+
+
+
