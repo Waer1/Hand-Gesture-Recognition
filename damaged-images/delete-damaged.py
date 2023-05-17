@@ -1,10 +1,10 @@
 import os
 
 # Get the path to the text file of damaged images
-text_file_path = "D:/Material/3rd CMP/Second term/Neural network/project/Hand-Gesture-Recognition/damaged-images/women/0.txt"
+text_file_path = "./both/0.txt"
 
 # Get the path to the folder of images
-damages_images_path = 'D:/Material/3rd CMP/Second term/Neural network/project/Hand-Gesture-Recognition/segmented/women/0/'
+damages_images_path = '../../Dataset/0/'
 
 
 def delete_files_from_list(file_list_path):
