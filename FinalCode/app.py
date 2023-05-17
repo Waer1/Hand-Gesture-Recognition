@@ -1,25 +1,10 @@
 import pickle
 import cv2
-import argparse
 import os
 import time
+import numpy as np
 from preprocessing import preprocess
-from features import get_feature
-
-# =========================================================================
-# Get the environment variables
-# =========================================================================
-# Create argument parser
-parser = argparse.ArgumentParser()
-# Add feature argument
-parser.add_argument('--feature', type=int, help='feature value')
-# Parse arguments
-args = parser.parse_args()
-
-# Possible values [0: "HOG", 1: "LBP", 2: "SIFT", 3: "SURF"]
-# Read feature
-FEATURE_METHOD = args.feature
-# =========================================================================
+from features import hog_features
 
 # Load the trained model from pickle file
 with open('classifier.pkl', 'rb') as f:
@@ -46,7 +31,7 @@ for image in images:
 				image = preprocess(image)
 
 				# Feature extraction phase
-				feature = get_feature(FEATURE_METHOD, image)
+				feature = np.array(hog_features(image)).reshape(1, -1)
 
 				# Make prediction and output to the file
 				predicted_class = model.predict(feature)
@@ -57,5 +42,5 @@ for image in images:
 				end_time = time.time()
 				timeFile.write(f"{round(end_time - start_time, 3)}\n")
 		except:
-				resultsFile.write(f"Error in image {image}\n")
-				timeFile.write(f"Error in image {image}\n")
+				resultsFile.write(f"Error in image {image_path}\n")
+				timeFile.write(f"Error in image {image_path}\n")
