@@ -159,7 +159,7 @@ def preprocess(img):
                                     min_x_coord:max_x_coord]
     ##################################################################
     # Resize the image to small size to reduce extracted features array length.
-    wanted_size = (500, 281)
+    wanted_size = (128, 64)
     final_res = cv.resize(grey_scale_res, wanted_size)
     ##################################################################
 

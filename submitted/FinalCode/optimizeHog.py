@@ -8,7 +8,7 @@ from sklearn.metrics import accuracy_score
 import os
 
 # get all the image folder paths
-dataset = "../../Dataset/"
+dataset = "./Dataset/"
 image_paths = os.listdir(dataset)
 
 
@@ -74,7 +74,7 @@ def run_HOG_SVM(orientations_list, pixels_per_cell_list, cells_per_block_list, k
             best_accuracy = accuracy
             best_params['C'] = gamma
 
-    # print("the best C parameters were: ", best_params['C'])
+    print("the best C parameters were: ", best_params['C'])
 
     for kernal_val in kernel_list:
         accuracy = run_single(orientations_list[0], pixels_per_cell_list[0],
@@ -83,7 +83,7 @@ def run_HOG_SVM(orientations_list, pixels_per_cell_list, cells_per_block_list, k
             best_accuracy = accuracy
             best_params['kernel'] = kernal_val
 
-    # print("the best kernel parameters were: ", best_params['kernel'])
+    print("the best kernel parameters were: ", best_params['kernel'])
 
     for cell_per_block_val in cells_per_block_list:
         accuracy = run_single(orientations_list[0], pixels_per_cell_list[0], cell_per_block_val,
