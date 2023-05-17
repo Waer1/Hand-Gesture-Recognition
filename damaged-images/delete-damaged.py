@@ -1,13 +1,12 @@
 import os
 
 # Get the path to the text file of damaged images
-text_file_path = "D:/Material/3rd CMP/Second term/Neural network/project/Hand-Gesture-Recognition/damaged-images/women/0.txt"
+text_file_paths = ["D:/computer_engineering/Projects/under_development/Hand-Gesture-Recognition/damaged-images/women/", 
+                   'D:/computer_engineering/Projects/under_development/Hand-Gesture-Recognition/damaged-images/men/'
+                   ]
 
-# Get the path to the folder of images
-damages_images_path = 'D:/Material/3rd CMP/Second term/Neural network/project/Hand-Gesture-Recognition/segmented/women/0/'
 
-
-def delete_files_from_list(file_list_path):
+def delete_files_from_list(file_list_path, images_path):
     with open(file_list_path, 'r') as file:
         file_names = file.readlines()
 
@@ -18,7 +17,7 @@ def delete_files_from_list(file_list_path):
     not_found_files = []
 
     for file_name in file_names:
-        file_name = damages_images_path+file_name
+        file_name = os.path.join(images_path, file_name)
         if os.path.exists(file_name):
             try:
                 os.remove(file_name)
@@ -38,4 +37,17 @@ def delete_files_from_list(file_list_path):
             print(file_name)
 
 
-delete_files_from_list(text_file_path)
+
+# List of directory paths
+directory_paths = ["D:/computer_engineering/Projects/under_development/Hand-Gesture-Recognition/Dataset/0",
+                   "D:/computer_engineering/Projects/under_development/Hand-Gesture-Recognition/Dataset/1",
+                   "D:/computer_engineering/Projects/under_development/Hand-Gesture-Recognition/Dataset/2",
+                   "D:/computer_engineering/Projects/under_development/Hand-Gesture-Recognition/Dataset/3",
+                   "D:/computer_engineering/Projects/under_development/Hand-Gesture-Recognition/Dataset/4",
+                   "D:/computer_engineering/Projects/under_development/Hand-Gesture-Recognition/Dataset/5"]
+
+
+for path in text_file_paths:
+    for file_name in os.listdir(path):
+        for directory_path in directory_paths:
+            delete_files_from_list(path+file_name, directory_path)
